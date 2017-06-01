@@ -16,12 +16,14 @@
 
 package `in`.rmkrishna.mlog
 
+import android.Manifest
 import android.content.pm.PackageManager
 import android.os.Environment
+import android.os.StatFs
+import android.support.v4.content.ContextCompat
+import java.io.File
 import java.text.SimpleDateFormat
 import java.util.*
-import java.io.File
-import android.os.StatFs
 
 
 /**
@@ -148,6 +150,16 @@ internal class Util {
         }
 
         internal fun isSdCardPresent() = (Environment.MEDIA_MOUNTED == Environment.getExternalStorageState())
+
+
+        internal fun hasStorageWritePermission(): Boolean {
+            MLog.context?.let {
+                return ContextCompat.checkSelfPermission(it,
+                        Manifest.permission.WRITE_EXTERNAL_STORAGE) == PackageManager.PERMISSION_GRANTED
+            }
+
+            return false
+        }
     }
 }
 
