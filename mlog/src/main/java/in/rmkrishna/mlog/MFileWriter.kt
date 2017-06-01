@@ -101,7 +101,9 @@ class MFileWriter {
     }
 
     private fun isLoggable(): Boolean {
-        if (Util.isSdCardPresent() && Util.doesSdcardHasEnufSpace(AVAILABLE_SPACE)) {
+        if (Util.isSdCardPresent()
+                && Util.doesSdcardHasEnufSpace(AVAILABLE_SPACE)
+                && Util.hasStorageWritePermission()) {
             return true
         }
 
